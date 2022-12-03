@@ -21,7 +21,5 @@ public class Todos {
         return taskList.stream()
                 .sorted(Comparator.naturalOrder())
                 .collect(Collectors.joining(" "));
-
     }
-
 }

@@ -15,7 +15,7 @@ public class Client {
         try (Socket clientSocket = new Socket(HOST, PORT)) {
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            out.println("{ \"type\": \"ADD\", \"task\": \"acrobatic\" }");
+            out.println("{ \"type\": \"REMOVE\", \"task\": \"fitness\" }");
             System.out.println(in.readLine());
         }
     }

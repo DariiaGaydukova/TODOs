@@ -6,11 +6,13 @@ import com.google.gson.GsonBuilder;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Deque;
 import java.util.Scanner;
 
 public class TodoServer {
     int port;
     Todos todos;
+    private Deque<Request> dequeRequest;
 
     public TodoServer(int port, Todos todos) {
         this.todos = todos;
@@ -35,7 +37,18 @@ public class TodoServer {
                             break;
                         case "REMOVE":
                             todos.removeTask(request.getTask());
-
+                            break;
+                        case "RESTORE":
+                            if (!dequeRequest.isEmpty()) {
+                                Request actualRequest = dequeRequest.pollLast();
+                                if (actualRequest.getType().equals("ADD")) {
+                                    todos.removeTask(actualRequest.getTask());
+                                }
+                                if (actualRequest.getType().equals("REMOVE")) {
+                                    todos.addTask(actualRequest.getTask());
+                                }
+                            }
+                            break;
                     }
                     out.println(todos.getAllTasks());
 
