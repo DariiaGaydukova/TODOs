@@ -1,9 +1,10 @@
 package ru.netology.javacore;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Todos {
-    private Set<String> taskList = new TreeSet<>();
+    private ArrayList<String> taskList = new ArrayList<>();
     private static final int SIZE = 7;
 
     public void addTask(String task) {
@@ -16,8 +17,11 @@ public class Todos {
         taskList.remove(task);
     }
 
-    public Set<String> getAllTasks() {
-        return taskList;
+    public String getAllTasks() {
+        return taskList.stream()
+                .sorted(Comparator.naturalOrder())
+                .collect(Collectors.joining(" "));
+
     }
 
 }

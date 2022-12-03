@@ -5,61 +5,54 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashSet;
-import java.util.Set;
-
 
 public class TodosTests {
 
     private Todos todos;
-    private static final int SIZE = 7;
+
 
     @BeforeEach
     void setUpApp() {
         todos = new Todos();
+
     }
 
     @Test
-    @DisplayName("Макс размер ToDos")
-    public void addTaskMax() {
+    @DisplayName("Тестирование на формирования списка задач в алфавитном порядке")
+    public void testGetAllTasks() {
 
-        String task = "Hello, World!";
-        for (int i = 0; i < SIZE; i++) {
-            todos.addTask(task + i);
-        }
+        String expected = "A B C D";
+        todos.addTask("A");
+        todos.addTask("D");
+        todos.addTask("C");
+        todos.addTask("B");
 
-        todos.addTask(task);
-        Assertions.assertEquals(SIZE, todos.getAllTasks().size());
+        Assertions.assertEquals(expected, todos.getAllTasks());
     }
 
     @Test
     @DisplayName("Тестирование удаления задачи")
-    void removeTask() {
+    void testRemoveTask() {
 
         todos.addTask("A");
         todos.addTask("B");
         todos.addTask("C");
         todos.removeTask("B");
 
-        Set<String> expected = new HashSet<>();
-        expected.add("A");
-        expected.add("C");
+        String expected = "A C";
 
         Assertions.assertEquals(expected, todos.getAllTasks());
     }
 
     @Test
     @DisplayName("Тестирование добавления задачи")
-    void addTask() {
+    void testAddTask() {
 
         todos.addTask("A");
         todos.addTask("B");
         todos.addTask("C");
 
-        Set<String> expected = new HashSet<>();
-        expected.add("A");
-        expected.add("B");
-        expected.add("C");
+        String expected = "A B C";
 
         Assertions.assertEquals(expected, todos.getAllTasks());
     }
